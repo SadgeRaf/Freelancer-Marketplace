@@ -15,15 +15,15 @@ export default function AnimatedNavbar() {
 
   const links = [
     { name: "Home", path: "/" },
-    { name: "All Jobs", path: "/jobs" },
+    { name: "All Jobs", path: "/alljobs" },
     { name: "Add a Job", path: "/addJob" },
     { name: "My Accepted Tasks", path: "/myJobs" },
   ];
 
   return (
-    <nav className="w-full bg-[#bfe6f6]/90 backdrop-blur-sm shadow-md fixed top-0 left-0 z-50">
+    <nav className="w-full bg-[#bef6]/90 backdrop-blur-sm shadow-md fixed top-0 left-0 z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between h-20 px-6 relative">
-        {/* Logo */}
+        
         <Link
           to="/"
           className="text-2xl font-extrabold text-white tracking-wider z-50"

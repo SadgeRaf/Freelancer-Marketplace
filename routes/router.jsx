@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/Forgot";
 import Error from "../pages/Error";
+import AllJobs from "../pages/AllJobs";
 
 const router = createBrowserRouter(
     [
@@ -17,6 +18,11 @@ const router = createBrowserRouter(
                     path: "",
                     element: <Home />,
                 },
+                {
+                    path: '/alljobs',
+                    element: <AllJobs></AllJobs>,
+                    loader: () => fetch('http://localhost:3000/jobs')
+                }
             ]
         },
         {
