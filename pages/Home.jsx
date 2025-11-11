@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import React, { useRef } from 'react';
 import Gallery from '../component/gallery';
 import bannerimg from '../src/assets/7880.jpg'
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Job from '../component/Job';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/css";
@@ -20,6 +20,7 @@ const Home = () => {
   const data = useLoaderData();
   const containerRef = useRef();
   const jobContainer = useRef();
+  const navigate = useNavigate();
   // const galleryRef = useRef();
   useGSAP(() => {
     const circles = gsap.utils.toArray(".circle");
@@ -36,7 +37,6 @@ const Home = () => {
       });
     });
   }, []);
-
 
   useGSAP(() => {
     gsap.to(".btn", {
@@ -158,7 +158,58 @@ const Home = () => {
   //   return () => el.removeEventListener("mousemove", handleMouseMove);
   // }, []);
 
+  useGSAP(() => {
+    gsap.fromTo(".us", {
+      scale: 0.8,
+      opacity: 0,
+      color: '#ffffff'
+    }, {
+      scale: 1,
+      opacity: 1,
+      color: '#00ff75',
+      duration: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.us',
+        start: 'top 85%'
+      }
+    })
+  })
 
+  useGSAP(() => {
+    const cards = document.querySelector(".cards");
+    const totalScroll = cards.scrollWidth - cards.parentElement.offsetWidth;
+
+    gsap.to(cards, {
+      x: -totalScroll,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".us",
+        start: "top 80%",
+        end: () => `+=${totalScroll}`,
+        scrub: true,
+
+      },
+    });
+  });
+
+  useGSAP(() => {
+    gsap.from(".top-categories .category", {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".top-categories",
+        start: "top 80%",
+      }
+    });
+  });
+  
+  const handleNavigate = () => {
+    navigate('/alljobs')
+  }
 
   return (
     <div>
@@ -196,52 +247,74 @@ const Home = () => {
             </h1>
           </div>
 
-          <button className="absolute btn top-[88%] md:top-[85%] left-[50%] md:left-[85%] sm:left-[75%] bg-white text-black px-4 py-2 rounded-md">
+          <button onClick={handleNavigate} className="absolute btn top-[88%] md:top-[85%] left-[50%] md:left-[85%] sm:left-[75%] bg-white text-black px-4 py-2 rounded-md">
             See Jobs!
           </button>
         </div>
 
 
       </div>
-      <div 
-      ref={jobContainer}
-      className='w-11/12 mx-auto mt-4'>
+      <div
+        ref={jobContainer}
+        className='w-11/12 mx-auto mt-4'>
         <h1 className='text-5xl font-extrabold'>Latest Jobs</h1>
 
-      <Swiper
-        modules={[Autoplay, FreeMode]}
-        spaceBetween={20}
-        slidesPerView={1}
-        loop={true}
-        freeMode={true}
-        autoplay={{
-          delay: 500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
-        speed={5000}
-        effect="slide"
-        breakpoints={{
-          768: { slidesPerView: 2, spaceBetween: 30 },
-          1024: { slidesPerView: 3, spaceBetween: 40 },
-        }}
-      >
-        {data.map((job) => (
-          <SwiperSlide key={job._id} className='flex justify-center mt-2'>
-            <Job job={job} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <Swiper
+          modules={[Autoplay, FreeMode]}
+          spaceBetween={20}
+          slidesPerView={1}
+          loop={true}
+          freeMode={true}
+          autoplay={{
+            delay: 500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={5000}
+          effect="slide"
+          breakpoints={{
+            768: { slidesPerView: 2, spaceBetween: 30 },
+            1024: { slidesPerView: 3, spaceBetween: 40 },
+          }}
+        >
+          {data.map((job) => (
+            <SwiperSlide key={job._id} className='flex justify-center mt-2'>
+              <Job job={job} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
       {/* <div ref={galleryRef} className="mt-6 ">
         <Gallery />
       </div> */}
-      <div>
-        <h1>Why CHoose US?</h1>
+      <div className="us w-11/12 mx-auto overflow-hidden h-[120px] sm:h-[140px]">
+        <h1 className="mb-4 text-3xl sm:text-4xl font-bold">Why Choose US?</h1>
+        <div className="overflow-hidden h-full">
+          <div className="cards flex gap-10 whitespace-nowrap">
+            <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Fast Hiring</span>
+            <span className="inline-block px-4 py-2 bg-blue-400 text-white rounded-lg">Trusted Professionals</span>
+            <span className="inline-block px-4 py-2 bg-purple-500 text-white rounded-lg">24/7 Support</span>
+            <span className="inline-block px-4 py-2 bg-yellow-400 text-black rounded-lg">Affordable Prices</span>
+            <span className="inline-block px-4 py-2 bg-pink-400 text-white rounded-lg">Easy to Use</span>
+
+            <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Fast Hiring</span>
+            <span className="inline-block px-4 py-2 bg-blue-400 text-white rounded-lg">Trusted Professionals</span>
+            <span className="inline-block px-4 py-2 bg-purple-500 text-white rounded-lg">24/7 Support</span>
+            <span className="inline-block px-4 py-2 bg-yellow-400 text-black rounded-lg">Affordable Prices</span>
+            <span className="inline-block px-4 py-2 bg-pink-400 text-white rounded-lg">Easy to Use</span>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <h1>Top CAtegories</h1>
+      <div className="top-categories w-11/12 mx-auto mt-20">
+        <h1 className="text-4xl font-extrabold mb-8">Top Categories</h1>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+          <div className="category bg-green-400 text-white p-6 rounded-lg text-center">Web Development</div>
+          <div className="category bg-blue-400 text-white p-6 rounded-lg text-center">Digital Marketing</div>
+          <div className="category bg-purple-500 text-white p-6 rounded-lg text-center">Graphics Designing</div>
+          <div className="category bg-yellow-400 text-black p-6 rounded-lg text-center">Content Writing</div>
+          <div className="category bg-pink-400 text-white p-6 rounded-lg text-center">SEO</div>
+        </div>
       </div>
 
     </div>
