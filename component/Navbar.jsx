@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
+import { toast } from "react-toastify";
 
 export default function AnimatedNavbar() {
   const [hovered, setHovered] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
 
-  
   const paths = {
     1: "0 2 8 73.3 18 20.6",
     2: "0 8 10 56 12 20.6",
@@ -20,10 +22,21 @@ export default function AnimatedNavbar() {
     { name: "My Accepted Tasks", path: "/myJobs" },
   ];
 
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logged out successfully!");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   return (
     <nav className="w-full bg-[#bef6]/90 backdrop-blur-sm shadow-md fixed top-0 left-0 z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between h-20 px-6 relative">
-        
+
+        {/* Logo */}
         <Link
           to="/"
           className="text-2xl font-extrabold text-white tracking-wider z-50"
@@ -31,7 +44,7 @@ export default function AnimatedNavbar() {
           FM
         </Link>
 
-        
+        {/* Desktop Links */}
         <div className="relative w-[500px] hidden md:flex justify-around items-center h-[60px]">
           <div className="absolute inset-0 flex justify-around items-center px-4">
             {links.map((link, i) => (
@@ -47,7 +60,6 @@ export default function AnimatedNavbar() {
             ))}
           </div>
 
-          
           <svg
             className="absolute inset-0 pointer-events-none"
             width="100%"
@@ -76,23 +88,46 @@ export default function AnimatedNavbar() {
           </svg>
         </div>
 
-        
+        {/* Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            to="/auth/login"
-            className="text-white border border-white/40 px-4 py-2 rounded-md hover:bg-white/20 hover:text-lg transition"
-          >
-            Log In
-          </Link>
-          <Link
-            to="/auth/registration"
-            className="bg-white text-[#222] font-semibold px-4 py-2 rounded-md hover:bg-gray-200 hover:text-lg transition"
-          >
-            Sign up for free
-          </Link>
+          {user ? (
+            <>
+              <div className="relative group">
+                <img
+                  className="w-12 h-12 rounded-full cursor-pointer border-2 border-white"
+                  src={user.photoURL}
+                  alt="Avatar"
+                />
+                <span className="absolute bottom-[-30px] left-1/2 -translate-x-1/2 bg-black text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity text-sm whitespace-nowrap">
+                  {user.displayName}
+                </span>
+              </div>
+              <button
+                onClick={handleLogOut}
+                className="btn bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition"
+              >
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/auth/login"
+                className="text-white border border-white/40 px-4 py-2 rounded-md hover:bg-white/20 hover:text-lg transition"
+              >
+                Log In
+              </Link>
+              <Link
+                to="/auth/registration"
+                className="bg-white text-[#222] font-semibold px-4 py-2 rounded-md hover:bg-gray-200 hover:text-lg transition"
+              >
+                Sign up for free
+              </Link>
+            </>
+          )}
         </div>
 
-        
+        {/* Mobile Hamburger */}
         <button
           className="md:hidden text-white text-3xl z-50"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -100,7 +135,7 @@ export default function AnimatedNavbar() {
           {menuOpen ? "✕" : "☰"}
         </button>
 
-        
+        {/* Mobile Menu */}
         <div
           className={`absolute top-20 left-0 w-full bg-[#bfe6f6]/95 backdrop-blur-md flex flex-col items-center gap-6 py-6 text-white font-medium transition-all duration-500 ${
             menuOpen
@@ -118,22 +153,39 @@ export default function AnimatedNavbar() {
               {link.name}
             </Link>
           ))}
-          <div className="flex flex-col items-center gap-3">
-            <Link
-              to="/auth/login"
-              className="text-white border border-white/40 px-4 py-2 rounded-md hover:bg-white/20 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              Log In
-            </Link>
-            <Link
-              to="/auth/registration"
-              className="bg-white text-[#222] font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              Sign up for free
-            </Link>
-          </div>
+          {user ? (
+            <>
+              <div className="flex flex-col items-center gap-3">
+                <span>{user.displayName}</span>
+                <button
+                  onClick={() => {
+                    handleLogOut();
+                    setMenuOpen(false);
+                  }}
+                  className="btn bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition"
+                >
+                  Log Out
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center gap-3">
+              <Link
+                to="/auth/login"
+                className="text-white border border-white/40 px-4 py-2 rounded-md hover:bg-white/20 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Log In
+              </Link>
+              <Link
+                to="/auth/registration"
+                className="bg-white text-[#222] font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Sign up for free
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
