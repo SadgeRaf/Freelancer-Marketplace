@@ -19,7 +19,8 @@ export default function AnimatedNavbar() {
     { name: "Home", path: "/" },
     { name: "All Jobs", path: "/alljobs" },
     { name: "Add a Job", path: "/addJob" },
-    { name: "My Accepted Tasks", path: "/myJobs" },
+    { name: "My Accepted jobs", path: "/myJobs" },
+    { name: "My Posted jobs", path: "/myaddedjobs"}
   ];
 
   const handleLogOut = () => {

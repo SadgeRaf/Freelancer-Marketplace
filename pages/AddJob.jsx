@@ -7,7 +7,7 @@ const AddJobForm = () => {
   const { user } = useContext(AuthContext);
   
   const handleSubmit = (e) => {
-    
+    e.preventDefault()
     const formData = {
         title: e.target.title.value,
         postedBy: e.target.postedBy.value,
@@ -27,6 +27,7 @@ const AddJobForm = () => {
     .then(data=> {
         console.log(data);
         toast.success("Job added successfully");
+        e.form.reset()
     })
     .catch(err=> {
         toast.error(err);

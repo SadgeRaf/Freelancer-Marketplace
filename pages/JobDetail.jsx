@@ -1,10 +1,29 @@
-import React from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
+import React, { use, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import Loading from './Loading';
+import { AuthContext } from '../provider/AuthProvider';
 
 const JobDetail = () => {
-    const job = useLoaderData();
+    const [job, setJob] = useState({})
+    const [loading, setLoading] = useState(true)
+    const {user} = use(AuthContext)
+    const {id} = useParams();
+    useEffect(()=> {
+        fetch(`http://localhost:3000/jobs/${id}`, {
+                        headers: {
+                            authorization: `Bearer ${user.accessToken}`,
+                        }
+                    })
+                    .then(res=>res.json())
+                    .then(data => {
+                      console.log(data);
+                      setJob(data)
+                      setLoading(false)
+                    })
+    }, [])
+
     const navigate = useNavigate();
     const handleAcceptTask = () => {
         
@@ -51,7 +70,9 @@ const JobDetail = () => {
   }
 });
     }
-
+    if(loading || !job.title){
+        return <Loading></Loading>
+    }
     return (
         <div className="min-h-screen bg-gray-900 p-4 md:p-6 mt-20 text-white max-w-5xl mx-auto">
             
