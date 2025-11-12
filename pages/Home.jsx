@@ -11,6 +11,11 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/autoplay";
 import { Autoplay, FreeMode } from "swiper/modules";
+import webImg from '../src/assets/course_1663052056.jpg';
+import writingImg from '../src/assets/course_1674372625.jpg';
+import marketingImg from '../src/assets/images (2).jpg';
+import graphicsImg from '../src/assets/photo-1626785774573-4b799315345d.jpg';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -206,7 +211,7 @@ const Home = () => {
       }
     });
   });
-  
+
   const handleNavigate = () => {
     navigate('/alljobs')
   }
@@ -308,14 +313,31 @@ const Home = () => {
 
       <div className="top-categories w-11/12 mx-auto mt-20">
         <h1 className="text-4xl font-extrabold mb-8">Top Categories</h1>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-          <div className="category bg-green-400 text-white p-6 rounded-lg text-center">Web Development</div>
-          <div className="category bg-blue-400 text-white p-6 rounded-lg text-center">Digital Marketing</div>
-          <div className="category bg-purple-500 text-white p-6 rounded-lg text-center">Graphics Designing</div>
-          <div className="category bg-yellow-400 text-black p-6 rounded-lg text-center">Content Writing</div>
-          <div className="category bg-pink-400 text-white p-6 rounded-lg text-center">SEO</div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+
+          <div className="category bg-green-400 text-white p-4 rounded-lg text-center flex flex-col items-center">
+            <img src={webImg} alt="Web Development" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <span>Web Development</span>
+          </div>
+
+          <div className="category bg-blue-400 text-white p-4 rounded-lg text-center flex flex-col items-center">
+            <img src={marketingImg} alt="Digital Marketing" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <span>Digital Marketing</span>
+          </div>
+
+          <div className="category bg-purple-500 text-white p-4 rounded-lg text-center flex flex-col items-center">
+            <img src={graphicsImg} alt="Graphics Designing" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <span>Graphics Designing</span>
+          </div>
+
+          <div className="category bg-yellow-400 text-black p-4 rounded-lg text-center flex flex-col items-center">
+            <img src={writingImg} alt="Content Writing" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <span>Content Writing</span>
+          </div>
+
         </div>
       </div>
+
 
     </div>
   );
