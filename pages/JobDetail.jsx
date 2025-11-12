@@ -1,7 +1,6 @@
 import React, { use, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
 import Loading from './Loading';
 import { AuthContext } from '../provider/AuthProvider';
 import api from '../src/api';
@@ -9,92 +8,59 @@ import api from '../src/api';
 const JobDetail = () => {
     const [job, setJob] = useState({})
     const [loading, setLoading] = useState(true)
-    const {user} = use(AuthContext)
-    const {id} = useParams();
-    useEffect(()=> {
+    const { user } = use(AuthContext)
+    const { id } = useParams();
+
+    useEffect(() => {
         fetch(`http://localhost:3000/jobs/${id}`, {
-                        headers: {
-                            authorization: `Bearer ${user.accessToken}`,
-                        }
-                    })
-                    .then(res=>res.json())
-                    .then(data => {
-                      console.log(data);
-                      setJob(data)
-                      setLoading(false)
-                    })
-    }, [])
+            headers: {
+                authorization: `Bearer ${user.accessToken}`,
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setJob(data)
+                setLoading(false)
+            })
+    }, [user])
 
     const navigate = useNavigate();
     const handleAcceptTask = async () => {
-        
+
         try {
             await api.post('/acceptjob', {
-              job,
-              email: user.email,
+                job,
+                email: user.email,
             },
-        {
-            headers: {
-                authorization: `Bearer ${user.accessToken}`,
-            },
-        })
+                {
+                    headers: {
+                        authorization: `Bearer ${user.accessToken}`,
+                    },
+                })
             toast.success("Task added to your accepted tasks!");
             navigate('/alljobs');
         } catch (err) {
             toast.error(err.message)
-        }   
-        
-        
+        }
+
+
     };
 
     const postedDate = new Date(job.postedAt || Date.now()).toLocaleDateString();
 
-    const handleDelete = () => {
-        Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
-    
-    fetch(`http://localhost:3000/jobs/${job._id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-             Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-            navigate("/alljobs");
-          })
-          .catch((err) => {
-            console.error(err);
-            toast.error("Failed to update job");
-          });
 
-   
-  }
-});
-    }
-    if(loading || !job.title){
+
+    if (loading || !job.title) {
         return <Loading></Loading>
     }
+
     return (
         <div className="min-h-screen bg-gray-900 p-4 md:p-6 mt-20 text-white max-w-5xl mx-auto">
-            
+
             {/* Top row: user info and category */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 sm:gap-0">
-                
+
                 <div className="flex items-center gap-4">
                     <img
                         src={job.userImg || "https://via.placeholder.com/50"}
@@ -134,8 +100,7 @@ const JobDetail = () => {
             >
                 Accept Task
             </button>
-            <button onClick={()=>{navigate(`/updateJob/${job._id}`)}} className="md:ml-2 md:mr-2 mt-2 mb-2 w-full sm:w-auto bg-gradient-to-r from-green-200 to-green-500 hover:from-blue-500 hover:to-green-400 text-black font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">Update Job</button>
-            <button onClick={handleDelete} className="w-full sm:w-auto bg-gradient-to-r from-red-400 to-red-200 hover:from-blue-500 hover:to-green-400 text-black font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">Delete Job</button>
+
         </div>
     );
 };
