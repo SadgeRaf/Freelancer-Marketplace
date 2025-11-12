@@ -316,22 +316,22 @@ const Home = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
 
           <div className="category bg-green-400 text-white p-4 rounded-lg text-center flex flex-col items-center">
-            <img src={webImg} alt="Web Development" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <img src={webImg} alt="Web Development" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Web Development</span>
           </div>
 
           <div className="category bg-blue-400 text-white p-4 rounded-lg text-center flex flex-col items-center">
-            <img src={marketingImg} alt="Digital Marketing" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <img src={marketingImg} alt="Digital Marketing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Digital Marketing</span>
           </div>
 
           <div className="category bg-purple-500 text-white p-4 rounded-lg text-center flex flex-col items-center">
-            <img src={graphicsImg} alt="Graphics Designing" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <img src={graphicsImg} alt="Graphics Designing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Graphics Designing</span>
           </div>
 
           <div className="category bg-yellow-400 text-black p-4 rounded-lg text-center flex flex-col items-center">
-            <img src={writingImg} alt="Content Writing" className="w-20 h-20 object-cover rounded-full mb-4" />
+            <img src={writingImg} alt="Content Writing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Content Writing</span>
           </div>
 

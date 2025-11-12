@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import Loading from './Loading';
 import { AuthContext } from '../provider/AuthProvider';
+import api from '../src/api';
 
 const JobDetail = () => {
     const [job, setJob] = useState({})
@@ -25,10 +26,25 @@ const JobDetail = () => {
     }, [])
 
     const navigate = useNavigate();
-    const handleAcceptTask = () => {
+    const handleAcceptTask = async () => {
         
-        toast.success("Task added to your accepted tasks!");
-        navigate('/alljobs');
+        try {
+            await api.post('/acceptjob', {
+              job,
+              email: user.email,
+            },
+        {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`,
+            },
+        })
+            toast.success("Task added to your accepted tasks!");
+            navigate('/alljobs');
+        } catch (err) {
+            toast.error(err.message)
+        }   
+        
+        
     };
 
     const postedDate = new Date(job.postedAt || Date.now()).toLocaleDateString();

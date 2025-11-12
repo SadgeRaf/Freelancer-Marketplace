@@ -9,10 +9,11 @@ export default function AnimatedNavbar() {
   const { user, logOut } = useContext(AuthContext);
 
   const paths = {
-    1: "0 2 8 73.3 18 20.6",
-    2: "0 8 10 56 12 20.6",
-    3: "0 16 12 36 14 50",
-    4: "0 28 15 1 20 76",
+    1: "0 1 8 73.3 18 18",
+    2: "0 7 8 62 12 20.6",
+    3: "0 13 10 48 10 50",
+    4: "0 21 12 28 12 60",
+    5: "0 30 20 1 14 80",
   };
 
   const links = [
