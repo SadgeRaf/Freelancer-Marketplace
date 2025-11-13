@@ -15,7 +15,11 @@ const AcceptedJobs = () => {
 
     const fetchAcceptedJobs = async () => {
       try {
-        const res = await api.get(`/acceptedjobs?email=${user.email}`);
+        const res = await api.get(`/acceptedjobs?email=${user.email}`, {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`
+          }
+        });
         setAcceptedJobs(res.data.result || []);
       } catch (err) {
         console.error("Failed to load accepted jobs:", err);
@@ -39,7 +43,11 @@ const AcceptedJobs = () => {
 
     if (confirm.isConfirmed) {
       try {
-        await api.delete(`/finishjob/${jobId}`); 
+        await api.delete(`/finishjob/${jobId}`, {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`
+          }
+        }); 
         setAcceptedJobs((prev) => prev.filter((item) => item._id !== jobId));
         toast.success("Job marked as finished!");
       } catch (err) {

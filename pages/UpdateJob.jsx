@@ -1,14 +1,37 @@
-// pages/UpdateJob.jsx
-import React from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import React, { use, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../src/api";
+import { AuthContext } from "../provider/AuthProvider";
+import Loading from "./Loading";
 
 const UpdateJob = () => {
-  const job = useLoaderData();
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = use(AuthContext);
 
-  const handleSubmit = (e) => {
+  const [job, setJob] = useState(null)
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const response = await api.get(`/jobs/${id}`, {
+          headers: { authorization: `Bearer ${user.accessToken}` },
+        });
+        setJob(response.data);
+      } catch (err) {
+        toast.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJob();
+  }, [id, user]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const updatedJob = {
@@ -16,28 +39,28 @@ const UpdateJob = () => {
       category: e.target.category.value,
       summary: e.target.summary.value,
       coverImage: e.target.coverImage.value,
-      
     };
 
-    fetch(`http://localhost:3000/jobs/${job._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedJob),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        toast.success("Job updated successfully");
-        navigate("/alljobs");
-      })
-      .catch((err) => {
-        console.error(err);
-        toast.error("Failed to update job");
-      });
+    try {
+
+      await api.put(
+        `/jobs/${job._id}`,
+        updatedJob,
+        {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      );
+
+      toast.success("Job updated successfully");
+      navigate("/alljobs");
+    } catch (err) {
+      toast.error(err.message || "Failed to update job");
+    }
   };
 
+  if (loading) return <Loading />;
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-900 p-4 mt-20">
@@ -49,7 +72,7 @@ const UpdateJob = () => {
           Update Job
         </h2>
 
-        {/* Job Title */}
+
         <div>
           <label className="block mb-2 font-semibold">Title</label>
           <input
@@ -58,11 +81,10 @@ const UpdateJob = () => {
             defaultValue={job?.title || ""}
             placeholder="Job Title"
             className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
-            required
           />
         </div>
 
-        {/* Posted By */}
+
         <div>
           <label className="block mb-2 font-semibold">Posted By</label>
           <input
@@ -74,14 +96,13 @@ const UpdateJob = () => {
           />
         </div>
 
-        {/* Category */}
+
         <div>
           <label className="block mb-2 font-semibold">Category</label>
           <select
             name="category"
             defaultValue={job?.category || ""}
             className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
-            required
           >
             <option value="">Select Category</option>
             <option value="Web Development">Web Development</option>
@@ -91,7 +112,7 @@ const UpdateJob = () => {
           </select>
         </div>
 
-        {/* Summary */}
+
         <div>
           <label className="block mb-2 font-semibold">Summary</label>
           <textarea
@@ -100,11 +121,10 @@ const UpdateJob = () => {
             placeholder="Job Description"
             className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
             rows="4"
-            required
           />
         </div>
 
-        {/* Cover Image */}
+
         <div>
           <label className="block mb-2 font-semibold">Cover Image URL</label>
           <input
@@ -116,7 +136,7 @@ const UpdateJob = () => {
           />
         </div>
 
-        {/* User Email */}
+
         <div>
           <label className="block mb-2 font-semibold">User Email</label>
           <input
@@ -128,7 +148,7 @@ const UpdateJob = () => {
           />
         </div>
 
-        {/* Submit Button */}
+
         <button
           type="submit"
           className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-green-400 text-black font-bold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"

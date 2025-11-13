@@ -12,18 +12,20 @@ const JobDetail = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:3000/jobs/${id}`, {
-            headers: {
-                authorization: `Bearer ${user.accessToken}`,
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setJob(data)
-                setLoading(false)
-            })
-    }, [user])
+        api.get(`/jobs/${id}`, {
+        headers: {
+            authorization: `Bearer ${user.accessToken}`,
+        },
+    })
+    .then(res => {
+        setJob(res.data); 
+        setLoading(false);
+    })
+    .catch(err => {
+        toast.error(err.message);
+        setLoading(false);
+    });
+}, [user, id]);
 
     const navigate = useNavigate();
     const handleAcceptTask = async () => {
@@ -56,7 +58,7 @@ const JobDetail = () => {
     return (
         <div className="min-h-screen bg-gray-900 p-4 md:p-6 mt-20 text-white max-w-5xl mx-auto">
 
-            {/* Top row: user info and category */}
+            
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 sm:gap-0">
 
                 <div className="flex items-center gap-4">
@@ -76,7 +78,7 @@ const JobDetail = () => {
                 </span>
             </div>
 
-            {/* Job image */}
+            
             <div className="mb-6">
                 <img
                     src={job.coverImage}
@@ -85,13 +87,13 @@ const JobDetail = () => {
                 />
             </div>
 
-            {/* Job title */}
+           
             <h1 className="text-3xl md:text-4xl font-bold text-green-400 mb-4">{job.title}</h1>
 
-            {/* Job description */}
+         
             <p className="text-gray-200 mb-6">{job.summary}</p>
 
-            {/* Accept task button */}
+        
             <button
                 onClick={handleAcceptTask}
                 className="w-full sm:w-auto bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-green-400 text-black font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"

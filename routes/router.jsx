@@ -18,7 +18,7 @@ import Loading from "../pages/Loading";
 const router = createBrowserRouter(
     [
         {
-            path:"/",
+            path: "/",
             element: <HomeLayout />,
             children: [
                 {
@@ -29,9 +29,9 @@ const router = createBrowserRouter(
                 {
                     path: '/alljobs',
                     element: (
-                        
-                            <AllJobs></AllJobs>
-                        
+
+                        <AllJobs></AllJobs>
+
                     ),
                     loader: () => fetch('http://localhost:3000/jobs'),
                     hydrateFallbackElement: <Loading></Loading>
@@ -49,13 +49,12 @@ const router = createBrowserRouter(
                     path: '/updatejob/:id',
                     element: (
                         <PrivateRoute>
-                           <UpdateJob></UpdateJob>
+                            <UpdateJob></UpdateJob>
                         </PrivateRoute>
-                    ),
-                    loader: ({params}) => fetch(`http://localhost:3000/jobs/${params.id}`)
+                    )
                 },
                 {
-                    path:'/addJob',
+                    path: '/addJob',
                     element: (
                         <PrivateRoute>
                             <AddJob></AddJob>
@@ -63,7 +62,7 @@ const router = createBrowserRouter(
                     ),
                 },
                 {
-                    path:'/myaddedjobs',
+                    path: '/myaddedjobs',
                     element: (
                         <PrivateRoute>
                             <MyJobs></MyJobs>
@@ -71,7 +70,7 @@ const router = createBrowserRouter(
                     )
                 },
                 {
-                    path:'/myjobs',
+                    path: '/myjobs',
                     element: (
                         <PrivateRoute>
                             <AcceptedJobs></AcceptedJobs>
@@ -81,22 +80,22 @@ const router = createBrowserRouter(
             ]
         },
         {
-            path:"/auth",
-            element:<AuthLayout></AuthLayout>,
+            path: "/auth",
+            element: <AuthLayout></AuthLayout>,
             children: [
                 {
-                    path:"/auth/login",
-                    element:<Login></Login>,
+                    path: "/auth/login",
+                    element: <Login></Login>,
                 },
                 {
-                    path:"/auth/registration",
-                    element:<Register></Register>,
+                    path: "/auth/registration",
+                    element: <Register></Register>,
                 }
             ]
         },
         {
-            path:"/*",
-            element:<Error></Error>
+            path: "/*",
+            element: <Error></Error>
         }
     ]
 );

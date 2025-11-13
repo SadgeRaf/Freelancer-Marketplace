@@ -4,6 +4,7 @@ import Loading from './Loading';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import api from '../src/api';
 
 const MyJobs = () => {
   const { user } = useContext(AuthContext);
@@ -29,34 +30,31 @@ const MyJobs = () => {
   }, [user]);
 
   const handleDelete = (jobId) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:3000/jobs/${jobId}`, {
-          method: "DELETE",
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`/jobs/${jobId}`, {
           headers: {
-            "Content-Type": "application/json",
+            authorization: `Bearer ${user.accessToken}`,
           },
-        })
-          .then(res => res.json())
-          .then(data => {
-            toast.success("Job deleted successfully");
-            setJobs(prev => prev.filter(job => job._id !== jobId));
-          })
-          .catch(err => {
-            console.error(err);
-            toast.error("Failed to delete job");
-          });
+        });
+        toast.success("Job deleted successfully");
+        setJobs(prev => prev.filter(job => job._id !== jobId));
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to delete job");
       }
-    });
-  };
+    }
+  });
+};
 
   if (loading) return <Loading />;
 
