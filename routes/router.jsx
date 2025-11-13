@@ -24,7 +24,7 @@ const router = createBrowserRouter(
                 {
                     path: "",
                     element: <Home />,
-                    loader: () => fetch('http://localhost:3000/latestJobs')
+                    loader: () => fetch('https://freelancer-server-omega.vercel.app/latestJobs')
                 },
                 {
                     path: '/alljobs',
@@ -33,7 +33,7 @@ const router = createBrowserRouter(
                         <AllJobs></AllJobs>
 
                     ),
-                    loader: () => fetch('http://localhost:3000/jobs'),
+                    loader: () => fetch('https://freelancer-server-omega.vercel.app/jobs'),
                     hydrateFallbackElement: <Loading></Loading>
                 },
                 {

@@ -6,14 +6,14 @@ import { toast } from "react-toastify";
 export default function AnimatedNavbar() {
   const [hovered, setHovered] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme,setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const { user, logOut } = useContext(AuthContext);
 
-  useEffect(()=>{
+  useEffect(() => {
     const html = document.querySelector('html')
     html.setAttribute('data-theme', theme)
     localStorage.setItem("theme", theme)
-  },[theme])
+  }, [theme])
 
   const handleTheme = (checked) => {
     setTheme(checked ? 'dark' : 'light')
@@ -102,9 +102,9 @@ export default function AnimatedNavbar() {
           </svg>
         </div>
 
-<input onChange={(e)=> handleTheme(e.target.checked)} type="checkbox" 
-               defaultChecked={localStorage.getItem('theme') === 'dark'}
-               className="toggle" />
+        <input onChange={(e) => handleTheme(e.target.checked)} type="checkbox"
+          defaultChecked={localStorage.getItem('theme') === 'dark'}
+          className="toggle" />
 
         <div className="hidden md:flex items-center gap-3">
           {user ? (
@@ -120,7 +120,7 @@ export default function AnimatedNavbar() {
                 </span>
               </div>
 
-              
+
 
               <button
                 onClick={handleLogOut}
@@ -158,8 +158,8 @@ export default function AnimatedNavbar() {
 
         <div
           className={`absolute top-20 left-0 w-full bg-[#bfe6f6]/95 backdrop-blur-md flex flex-col items-center gap-6 py-6 text-white font-medium transition-all duration-500 ${menuOpen
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 -translate-y-10 pointer-events-none"
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-10 pointer-events-none"
             }`}
         >
           {links.map((link) => (

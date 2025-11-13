@@ -11,19 +11,14 @@ const AcceptedJobs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user?.email) return;
-
     const fetchAcceptedJobs = async () => {
       try {
         const res = await api.get(`/acceptedjobs?email=${user.email}`, {
-          headers: {
-            authorization: `Bearer ${user.accessToken}`
-          }
+          headers: { authorization: `Bearer ${user.accessToken}` },
         });
-        setAcceptedJobs(res.data.result || []);
+        setAcceptedJobs(res.data.result);
       } catch (err) {
-        console.error("Failed to load accepted jobs:", err);
-        toast.error("Failed to load accepted jobs");
+        toast.error(err.message);
       } finally {
         setLoading(false);
       }
@@ -44,15 +39,36 @@ const AcceptedJobs = () => {
     if (confirm.isConfirmed) {
       try {
         await api.delete(`/finishjob/${jobId}`, {
-          headers: {
-            authorization: `Bearer ${user.accessToken}`
-          }
-        }); 
+          headers: { authorization: `Bearer ${user.accessToken}` },
+        });
         setAcceptedJobs((prev) => prev.filter((item) => item._id !== jobId));
         toast.success("Job marked as finished!");
       } catch (err) {
-        console.error(err);
-        toast.error("Failed to finish job");
+        toast.error(err.message);
+      }
+    }
+  };
+
+  const handleDrop = async (jobId) => {
+    const confirm = await Swal.fire({
+      title: "Drop this job?",
+      text: "You will no longer be assigned to this job.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e11d48",
+      confirmButtonText: "Yes, drop it",
+      cancelButtonText: "Cancel",
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        await api.delete(`/dropjob/${jobId}`, {
+          headers: { authorization: `Bearer ${user.accessToken}` },
+        });
+        setAcceptedJobs((prev) => prev.filter((item) => item._id !== jobId));
+        toast.info("Job dropped successfully.");
+      } catch (err) {
+        toast.error(err.message);
       }
     }
   };
@@ -73,7 +89,7 @@ const AcceptedJobs = () => {
                 <th className="px-6 py-3 text-left font-semibold">Category</th>
                 <th className="px-6 py-3 text-left font-semibold">Posted By</th>
                 <th className="px-6 py-3 text-left font-semibold">Date</th>
-                <th className="px-6 py-3 text-center font-semibold">Finished</th>
+                <th className="px-6 py-3 text-center font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-700">
@@ -82,13 +98,22 @@ const AcceptedJobs = () => {
                   <td className="px-6 py-4">{item.job.title}</td>
                   <td className="px-6 py-4">{item.job.category}</td>
                   <td className="px-6 py-4">{item.job.postedBy}</td>
-                  <td className="px-6 py-4">{new Date(item.job.postedAt || Date.now()).toLocaleDateString()}</td>
-                  <td className="px-6 py-4 text-center">
-                    <input
-                      type="checkbox"
-                      onChange={() => handleFinish(item._id)}
-                      className="w-5 h-5 cursor-pointer"
-                    />
+                  <td className="px-6 py-4">
+                    {new Date(item.job.postedAt || Date.now()).toLocaleDateString()}
+                  </td>
+                  <td className="px-6 py-4 text-center flex gap-3 justify-center">
+                    <button
+                      onClick={() => handleFinish(item._id)}
+                      className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md text-sm transition"
+                    >
+                      Finish
+                    </button>
+                    <button
+                      onClick={() => handleDrop(item._id)}
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm transition"
+                    >
+                      Drop
+                    </button>
                   </td>
                 </tr>
               ))}

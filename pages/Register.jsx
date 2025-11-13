@@ -8,7 +8,7 @@ import { FaGoogle } from "react-icons/fa";
 
 
 const Register = () => {
-  const { createUser, setUser,updateUser,googleSignUp } = use(AuthContext);
+  const { createUser, setUser, updateUser, googleSignUp } = use(AuthContext);
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -32,13 +32,13 @@ const Register = () => {
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-        updateUser({displayName : name, photoURL: photo}).then(()=>{
-           setUser({...user, displayName : name, photoURL: photo});
-           navigate("/");
-        }).catch((error)=>{
-           toast.error(error.message);
+        updateUser({ displayName: name, photoURL: photo }).then(() => {
+          setUser({ ...user, displayName: name, photoURL: photo });
+          navigate("/");
+        }).catch((error) => {
+          toast.error(error.message);
         });
-        
+
         toast.success('✅ Account registered successfully!');
         form.reset();
       })
@@ -46,24 +46,24 @@ const Register = () => {
         toast.error(error.message);
       });
   };
-  
-   const handleToggle = (e) => {
+
+  const handleToggle = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   }
 
   const handleGoogle = () => {
-      googleSignUp()
+    googleSignUp()
       .then(res => {
         const user = res.user;
         setUser(user);
         toast.success("Signed up with Google!")
         navigate(`${location.state ? location.state : '/'}`);
       })
-      .catch(error=>{
+      .catch(error => {
         toast.error(error.message);
       })
-    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 mt-20">
@@ -116,7 +116,7 @@ const Register = () => {
               required
             />
 
-            
+
             <button
               type="button"
               onClick={handleToggle}
@@ -142,10 +142,10 @@ const Register = () => {
         </p>
 
         <div className='flex justify-center items-center flex-row relative'>
-                  <button onClick={handleGoogle} className="btn w-full mt-2 ">Sign up with <span className='text-blue-500'>Google</span></button>
-                  <FaGoogle className='absolute left-57 top-5'/>
-                </div>
-        
+          <button onClick={handleGoogle} className="btn w-full mt-2 ">Sign up with <span className='text-blue-500'>Google</span></button>
+          <FaGoogle className='absolute left-57 top-5' />
+        </div>
+
       </div>
     </div>
   );

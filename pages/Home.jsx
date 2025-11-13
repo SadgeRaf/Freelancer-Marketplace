@@ -111,7 +111,7 @@ const Home = () => {
       ease: 'power3.out',
     });
   }, [])
-  
+
   // useGSAP(()=>{
   //   gsap.from(galleryRef.current, {
   //       scrollTrigger: {

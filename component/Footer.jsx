@@ -24,7 +24,6 @@ const Footer = () => {
 
       <nav>
         <div className="grid grid-flow-col gap-4">
-          {/* X (Twitter) Logo */}
           <a className="transition transform hover:scale-110 hover:text-black hover:drop-shadow-lg duration-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +36,7 @@ const Footer = () => {
             </svg>
           </a>
 
-          {/* YouTube */}
+
           <a className="transition transform hover:scale-110 hover:text-red-600 hover:drop-shadow-lg duration-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +48,6 @@ const Footer = () => {
             </svg>
           </a>
 
-          {/* Facebook */}
           <a className="transition transform hover:scale-110 hover:text-blue-600 hover:drop-shadow-lg duration-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"

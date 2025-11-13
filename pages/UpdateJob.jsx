@@ -56,7 +56,7 @@ const UpdateJob = () => {
       toast.success("Job updated successfully");
       navigate("/alljobs");
     } catch (err) {
-      toast.error(err.message || "Failed to update job");
+      toast.error(err.message);
     }
   };
 

@@ -13,7 +13,7 @@ const MyJobs = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myjobs?email=${user.email}`, {
+    fetch(`https://freelancer-server-omega.vercel.app/myjobs?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`
       }
@@ -24,37 +24,36 @@ const MyJobs = () => {
         setLoading(false);
       })
       .catch(err => {
-        toast.error("Failed to fetch jobs");
+        toast.error(err.message);
         setLoading(false);
       });
   }, [user]);
 
   const handleDelete = (jobId) => {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        await api.delete(`/jobs/${jobId}`, {
-          headers: {
-            authorization: `Bearer ${user.accessToken}`,
-          },
-        });
-        toast.success("Job deleted successfully");
-        setJobs(prev => prev.filter(job => job._id !== jobId));
-      } catch (err) {
-        console.error(err);
-        toast.error("Failed to delete job");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await api.delete(`/jobs/${jobId}`, {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
+          });
+          toast.success("Job deleted successfully");
+          setJobs(prev => prev.filter(job => job._id !== jobId));
+        } catch (err) {
+          toast.error(err.message);
+        }
       }
-    }
-  });
-};
+    });
+  };
 
   if (loading) return <Loading />;
 

@@ -6,41 +6,25 @@ import api from "../src/api";
 
 const AddJobForm = () => {
   const { user } = useContext(AuthContext);
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData = {
-        title: e.target.title.value,
-        postedBy: e.target.postedBy.value,
-        category: e.target.category.value,
-        summary: e.target.summary.value,
-        coverImage: e.target.coverImage.value,
-        userEmail: e.target.userEmail.value,
+      title: e.target.title.value,
+      postedBy: e.target.postedBy.value,
+      category: e.target.category.value,
+      summary: e.target.summary.value,
+      coverImage: e.target.coverImage.value,
+      userEmail: e.target.userEmail.value,
     }
 
-    // fetch('http://localhost:3000/jobs', {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData)
-    // }).then(res => res.json())
-    // .then(data=> {
-    //     console.log(data);
-    //     toast.success("Job added successfully");
-    //     e.form.reset()
-    // })
-    // .catch(err=> {
-    //     toast.error(err);
-    // })
-
     api.post('/jobs', formData)
-     .then(()=>{
-      toast.success("Job added successfully");
-      e.target.reset()
-     }).catch(err=> {
-         toast.error(err);
-     })
+      .then(() => {
+        toast.success("Job added successfully");
+        e.target.reset()
+      }).catch(err => {
+        toast.error(err);
+      })
 
   }
 
@@ -49,7 +33,7 @@ const AddJobForm = () => {
       <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-2xl w-full max-w-md text-white shadow-lg space-y-6">
         <h2 className="text-3xl font-bold text-center text-green-400">Add a Job</h2>
 
-        
+
         <div>
           <label className="block mb-2 font-semibold">Title</label>
           <input
@@ -60,7 +44,7 @@ const AddJobForm = () => {
           />
         </div>
 
-        
+
         <div>
           <label className="block mb-2 font-semibold">Posted By</label>
           <input
@@ -72,7 +56,7 @@ const AddJobForm = () => {
           />
         </div>
 
-        
+
         <div>
           <label className="block mb-2 font-semibold">Category</label>
           <select
@@ -86,7 +70,7 @@ const AddJobForm = () => {
           </select>
         </div>
 
-        
+
         <div>
           <label className="block mb-2 font-semibold">Summary</label>
           <textarea
@@ -97,7 +81,7 @@ const AddJobForm = () => {
           />
         </div>
 
-        
+
         <div>
           <label className="block mb-2 font-semibold">Cover Image URL</label>
           <input
@@ -108,7 +92,7 @@ const AddJobForm = () => {
           />
         </div>
 
-       
+
         <div>
           <label className="block mb-2 font-semibold">User Email</label>
           <input
@@ -120,7 +104,7 @@ const AddJobForm = () => {
           />
         </div>
 
-       
+
         <button
           type="submit"
           className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-green-400 text-black font-bold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"
