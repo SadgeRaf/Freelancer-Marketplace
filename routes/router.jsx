@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import AuthLayout from "../layout/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import ForgotPassword from "../pages/Forgot";
 import Error from "../pages/Error";
 import AllJobs from "../pages/AllJobs";
 import AddJob from "../pages/AddJob";
@@ -13,6 +12,7 @@ import JobDetail from "../pages/JobDetail";
 import UpdateJob from "../pages/updateJob";
 import MyJobs from "../pages/MyJobs";
 import AcceptedJobs from "../pages/AcceptedJobs";
+import Loading from "../pages/Loading";
 
 
 const router = createBrowserRouter(
@@ -33,7 +33,8 @@ const router = createBrowserRouter(
                             <AllJobs></AllJobs>
                         
                     ),
-                    loader: () => fetch('http://localhost:3000/jobs')
+                    loader: () => fetch('http://localhost:3000/jobs'),
+                    hydrateFallbackElement: <Loading></Loading>
                 },
                 {
                     path: '/jobdetail/:id',
@@ -92,10 +93,6 @@ const router = createBrowserRouter(
                     element:<Register></Register>,
                 }
             ]
-        },
-        {
-            path:"/forgot",
-            element:<ForgotPassword></ForgotPassword>,
         },
         {
             path:"/*",

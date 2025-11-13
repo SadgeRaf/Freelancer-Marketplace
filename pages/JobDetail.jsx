@@ -49,8 +49,6 @@ const JobDetail = () => {
 
     const postedDate = new Date(job.postedAt || Date.now()).toLocaleDateString();
 
-
-
     if (loading || !job.title) {
         return <Loading></Loading>
     }

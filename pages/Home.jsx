@@ -15,6 +15,7 @@ import webImg from '../src/assets/course_1663052056.jpg';
 import writingImg from '../src/assets/course_1674372625.jpg';
 import marketingImg from '../src/assets/images (2).jpg';
 import graphicsImg from '../src/assets/photo-1626785774573-4b799315345d.jpg';
+// import BlobCursor from '../animations/BlobCursor';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -110,6 +111,7 @@ const Home = () => {
       ease: 'power3.out',
     });
   }, [])
+  
   // useGSAP(()=>{
   //   gsap.from(galleryRef.current, {
   //       scrollTrigger: {
@@ -227,13 +229,31 @@ const Home = () => {
             className="absolute inset-0 bg-cover banner-bg bg-center brightness-50"
             style={{ backgroundImage: `url(${bannerimg})` }}
           ></div>
+          {/* <BlobCursor
+            blobType="circle"
+            fillColor="#5227FF"
+            trailCount={3}
+            sizes={[30, 100, 50]}
+            innerSizes={[20, 35, 25]}
+            innerColor="rgba(255,255,255,0.8)"
+            opacities={[0.6, 0.6, 0.2]}
+            shadowColor="rgba(0,0,0,0.75)"
+            shadowBlur={5}
+            shadowOffsetX={10}
+            shadowOffsetY={10}
+            filterStdDeviation={30}
+            useFilter={true}
+            fastDuration={0.1}
+            slowDuration={0.5}
+            zIndex={1}
+          /> */}
           <h1 className="absolute text-5xl font-bold sm:text-6xl md:text-8xl md:font-extrabold left-6 sm:left-10 top-12 sm:top-16">
             Unemployed?
           </h1>
 
 
           <div className="absolute top-[40%] left-0 flex gap-6 sm:gap-10 px-4">
-            {[...Array(15)].map((_, i) => (
+            {[...Array(17)].map((_, i) => (
               <div
                 key={i}
                 className="circle w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-white"
@@ -294,6 +314,8 @@ const Home = () => {
       </div> */}
       <div className="us w-11/12 mx-auto overflow-hidden h-[120px] sm:h-[140px]">
         <h1 className="mb-4 text-3xl sm:text-4xl font-bold">Why Choose US?</h1>
+        {/* <p>Serving clients and freelancers since 2025, we have managed to garner over  users.</p>
+        <p>We have been trusted by </p> */}
         <div className="overflow-hidden h-full">
           <div className="cards flex gap-10 whitespace-nowrap">
             <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Fast Hiring</span>
@@ -315,22 +337,22 @@ const Home = () => {
         <h1 className="text-4xl font-extrabold mb-8">Top Categories</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
 
-          <div className="category bg-green-400 text-white p-4 rounded-lg text-center flex flex-col items-center">
+          <div className="category bg-green-400 text-white p-4 rounded-lg text-center font-bold flex flex-col items-center">
             <img src={webImg} alt="Web Development" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Web Development</span>
           </div>
 
-          <div className="category bg-blue-400 text-white p-4 rounded-lg text-center flex flex-col items-center">
+          <div className="category bg-blue-400 text-black p-4 rounded-lg text-center font-bold flex flex-col items-center">
             <img src={marketingImg} alt="Digital Marketing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Digital Marketing</span>
           </div>
 
-          <div className="category bg-purple-500 text-white p-4 rounded-lg text-center flex flex-col items-center">
+          <div className="category bg-purple-500 text-white p-4 rounded-lg text-center font-bold flex flex-col items-center">
             <img src={graphicsImg} alt="Graphics Designing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Graphics Designing</span>
           </div>
 
-          <div className="category bg-yellow-400 text-black p-4 rounded-lg text-center flex flex-col items-center">
+          <div className="category bg-yellow-400 text-black p-4 rounded-lg text-center font-bold flex flex-col items-center">
             <img src={writingImg} alt="Content Writing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
             <span>Content Writing</span>
           </div>

@@ -50,14 +50,11 @@ const Login = () => {
       const user = res.user;
       setUser(user);
       toast.success("Signed up with Google!")
+      navigate(`${location.state ? location.state : '/'}`);
     })
     .catch(error=>{
       toast.error(error.message);
     })
-  }
-
-  const handlePasswordReset = () => {
-    navigate("/forgot");
   }
 
 
@@ -99,7 +96,7 @@ const Login = () => {
           </div>
 
           <div className="flex justify-between items-center">
-            <button onClick={handlePasswordReset} className="text-blue-500 text-sm hover:underline">
+            <button className="text-blue-500 text-sm hover:underline">
               Forgot Password?
             </button>
           </div>

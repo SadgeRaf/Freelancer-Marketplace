@@ -21,7 +21,7 @@ export default function AnimatedNavbar() {
     { name: "All Jobs", path: "/alljobs" },
     { name: "Add a Job", path: "/addJob" },
     { name: "My Accepted jobs", path: "/myJobs" },
-    { name: "My Posted jobs", path: "/myaddedjobs"}
+    { name: "My Posted jobs", path: "/myaddedjobs" }
   ];
 
   const handleLogOut = () => {
@@ -38,7 +38,7 @@ export default function AnimatedNavbar() {
     <nav className="w-full bg-[#bef6]/90 backdrop-blur-sm shadow-md fixed top-0 left-0 z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between h-20 px-6 relative">
 
-        {/* Logo */}
+
         <Link
           to="/"
           className="text-2xl font-extrabold text-white tracking-wider z-50"
@@ -46,9 +46,10 @@ export default function AnimatedNavbar() {
           FM
         </Link>
 
-        {/* Desktop Links */}
-        <div className="relative w-[500px] hidden md:flex justify-around items-center h-[60px]">
-          <div className="absolute inset-0 flex justify-around items-center px-4">
+
+        <div className="relative w-[800px] hidden md:flex justify-around items-center h-[60px]">
+          <div className="absolute inset-0 flex justify-around items-center px-4"
+            onMouseLeave={() => setHovered(null)}>
             {links.map((link, i) => (
               <Link
                 key={link.name}
@@ -82,15 +83,15 @@ export default function AnimatedNavbar() {
               strokeWidth="3"
               pathLength="100"
               style={{
-                strokeDashoffset: hovered ? 0 : 5,
+                strokeDashoffset: 0,
                 strokeDasharray: hovered ? paths[hovered] : "10 40 10 40",
-                transition: hovered ? "0.5s" : "999999s",
+                transition: "stroke-dasharray 0.5s ease-in-out",
               }}
             />
           </svg>
         </div>
 
-        {/* Auth Buttons */}
+
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <>
@@ -129,7 +130,7 @@ export default function AnimatedNavbar() {
           )}
         </div>
 
-        {/* Mobile Hamburger */}
+
         <button
           className="md:hidden text-white text-3xl z-50"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -137,13 +138,12 @@ export default function AnimatedNavbar() {
           {menuOpen ? "✕" : "☰"}
         </button>
 
-        {/* Mobile Menu */}
+
         <div
-          className={`absolute top-20 left-0 w-full bg-[#bfe6f6]/95 backdrop-blur-md flex flex-col items-center gap-6 py-6 text-white font-medium transition-all duration-500 ${
-            menuOpen
+          className={`absolute top-20 left-0 w-full bg-[#bfe6f6]/95 backdrop-blur-md flex flex-col items-center gap-6 py-6 text-white font-medium transition-all duration-500 ${menuOpen
               ? "opacity-100 translate-y-0 pointer-events-auto"
               : "opacity-0 -translate-y-10 pointer-events-none"
-          }`}
+            }`}
         >
           {links.map((link) => (
             <Link

@@ -1,18 +1,26 @@
-import React, { useRef } from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLoaderData, useNavigate, useNavigation } from 'react-router';
 import Job from '../component/Job';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from 'gsap';
+import Loading from './Loading';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const AllJobs = () => {
   const jobContainer = useRef();
-  const data = useLoaderData();
+  const loadData = useLoaderData();
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const [data,setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+   
+  useEffect(()=>{
+    setData(loadData),
+    setLoading(false);
+  },[loadData])
 
-  // animate the shape (square → circle → square)
   useGSAP(() => {
     gsap.to('.dot', {
       borderRadius: '50%',
@@ -23,8 +31,7 @@ const AllJobs = () => {
       ease: 'power1.inOut',
     });
   }, []);
-
-  // fade-in + upward animation for job cards
+ 
   useGSAP(() => {
     gsap.from(jobContainer.current, {
       scrollTrigger: {
@@ -43,6 +50,10 @@ const AllJobs = () => {
   const handleNavigation = () => {
     navigate('/');
   };
+ 
+  if(loading || navigation.state === 'loading'){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="mt-32 w-11/12 mx-auto">
