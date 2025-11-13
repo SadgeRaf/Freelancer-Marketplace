@@ -22,3 +22,5 @@ A full-stack web application designed to connect freelancers and clients through
 - 🧭 **Responsive Design:** Fully optimized for desktop and mobile devices.
 
 ---
+
+live link- https://freelance-marketplace-8dbfc.web.app

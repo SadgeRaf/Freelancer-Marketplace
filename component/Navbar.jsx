@@ -21,8 +21,8 @@ export default function AnimatedNavbar() {
 
   const paths = {
     1: "0 1 8 73.3 18 18",
-    2: "0 7 8 62 12 20.6",
-    3: "0 13 10 48 10 50",
+    2: "0 6 8 64 10 20.6",
+    3: "0 12 10 49 10 50",
     4: "0 21 12 28 12 60",
     5: "0 30 20 1 14 80",
   };
@@ -58,7 +58,7 @@ export default function AnimatedNavbar() {
         </Link>
 
 
-        <div className="relative w-[800px] hidden md:flex justify-around items-center h-[60px]">
+        <div className="relative w-[700px] hidden md:flex justify-around items-center h-[60px]">
           <div className="absolute inset-0 flex justify-around items-center px-4"
             onMouseLeave={() => setHovered(null)}>
             {links.map((link, i) => (
