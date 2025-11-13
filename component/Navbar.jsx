@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-toastify";
@@ -6,7 +6,18 @@ import { toast } from "react-toastify";
 export default function AnimatedNavbar() {
   const [hovered, setHovered] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme,setTheme] = useState(localStorage.getItem('theme') || 'light');
   const { user, logOut } = useContext(AuthContext);
+
+  useEffect(()=>{
+    const html = document.querySelector('html')
+    html.setAttribute('data-theme', theme)
+    localStorage.setItem("theme", theme)
+  },[theme])
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? 'dark' : 'light')
+  }
 
   const paths = {
     1: "0 1 8 73.3 18 18",
@@ -91,6 +102,9 @@ export default function AnimatedNavbar() {
           </svg>
         </div>
 
+<input onChange={(e)=> handleTheme(e.target.checked)} type="checkbox" 
+               defaultChecked={localStorage.getItem('theme') === 'dark'}
+               className="toggle" />
 
         <div className="hidden md:flex items-center gap-3">
           {user ? (
@@ -105,6 +119,9 @@ export default function AnimatedNavbar() {
                   {user.displayName}
                 </span>
               </div>
+
+              
+
               <button
                 onClick={handleLogOut}
                 className="btn bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition"
