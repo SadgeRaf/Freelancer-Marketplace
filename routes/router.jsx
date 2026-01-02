@@ -13,6 +13,10 @@ import UpdateJob from "../pages/updateJob";
 import MyJobs from "../pages/MyJobs";
 import AcceptedJobs from "../pages/AcceptedJobs";
 import Loading from "../pages/Loading";
+import DashboardLayout from "../layout/DashboardLayout";
+import Profile from "../pages/Profile";
+import Setting from "../pages/Setting";
+import Terms from "../pages/Terms";
 
 
 const router = createBrowserRouter(
@@ -39,9 +43,9 @@ const router = createBrowserRouter(
                 {
                     path: '/jobdetail/:id',
                     element: (
-                        <PrivateRoute>
-                            <JobDetail></JobDetail>
-                        </PrivateRoute>
+
+                        <JobDetail></JobDetail>
+
                     )
 
                 },
@@ -76,7 +80,25 @@ const router = createBrowserRouter(
                             <AcceptedJobs></AcceptedJobs>
                         </PrivateRoute>
                     )
+                },
+                {
+                    path: '/terms',
+                    element: <Terms></Terms>
                 }
+            ]
+        },
+        {
+            path: '/dashboard',
+            element: <DashboardLayout></DashboardLayout>,
+            children: [
+                {
+                    path: '/dashboard/profile',
+                    element: <PrivateRoute><Profile></Profile></PrivateRoute>
+                },
+                {
+                    path: '/dashboard/settings',
+                    element: <PrivateRoute><Setting></Setting></PrivateRoute>
+                },
             ]
         },
         {

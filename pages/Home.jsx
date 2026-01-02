@@ -15,6 +15,8 @@ import webImg from '../src/assets/course_1663052056.jpg';
 import writingImg from '../src/assets/course_1674372625.jpg';
 import marketingImg from '../src/assets/images (2).jpg';
 import graphicsImg from '../src/assets/photo-1626785774573-4b799315345d.jpg';
+import AboutSection from '../component/AboutSection';
+import ContactSection from '../component/ContactSection';
 // import BlobCursor from '../animations/BlobCursor';
 
 
@@ -360,6 +362,9 @@ const Home = () => {
         </div>
       </div>
 
+      <AboutSection></AboutSection>
+
+      <ContactSection></ContactSection>
 
     </div>
   );
