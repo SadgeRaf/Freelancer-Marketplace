@@ -29,7 +29,7 @@ const AddJobForm = () => {
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-900 p-4 mt-20">
+    <div className="min-h-screen flex justify-center items-center p-4 mt-20">
       <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-2xl w-full max-w-md text-white shadow-lg space-y-6">
         <h2 className="text-3xl font-bold text-center text-green-400">Add a Job</h2>
 

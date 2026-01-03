@@ -61,8 +61,8 @@ const MyJobs = () => {
     <div className="p-4 mt-20">
       <h2 className="text-2xl font-bold mb-4 text-white">My Jobs</h2>
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-700 bg-gray-900 text-white rounded-lg">
-          <thead className="bg-gray-800">
+        <table className="min-w-full divide-y divide-gray-700 text-white rounded-lg">
+          <thead>
             <tr>
               <th className="px-6 py-3 text-left text-sm font-semibold">Title</th>
               <th className="px-6 py-3 text-left text-sm font-semibold">Category</th>

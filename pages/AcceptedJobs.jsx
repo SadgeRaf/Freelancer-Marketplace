@@ -82,8 +82,8 @@ const AcceptedJobs = () => {
         <p>No accepted jobs yet.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-700 bg-gray-900 rounded-lg">
-            <thead className="bg-gray-800">
+          <table className="min-w-full divide-y divide-gray-700 rounded-lg">
+            <thead >
               <tr>
                 <th className="px-6 py-3 text-left font-semibold">Title</th>
                 <th className="px-6 py-3 text-left font-semibold">Category</th>

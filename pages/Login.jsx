@@ -10,39 +10,49 @@ const Login = () => {
   const {logIn,setUser,googleSignUp} = use(AuthContext);
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
   const location = useLocation();
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
+    
+    const { email, password } = formData;
     
     const pattern = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
     if (!pattern.test(password)){
-      setPasswordError('Password must be atlest 6 characters long and needs to have atleast 1 uppercase and 1 lowercase');
-      return ;
+      setPasswordError('Password must be at least 6 characters long and contain at least 1 uppercase and 1 lowercase letter');
+      return;
     }
 
     setPasswordError('');
 
-    logIn(email,password).then((res)=>{
+    logIn(email, password).then((res) => {
       const user = res.user;
       setUser(user);
-      toast.success("Logged in Succesfully");
-      navigate(`${location.state ? location.state : '/'}`);
-      form.reset();
-    }).catch((error)=>{
+      toast.success("Logged in Successfully");
+      navigate(location.state || '/');
+      setFormData({ email: '', password: '' });
+    }).catch((error) => {
       toast.error(error.message);
       setPasswordError(error.message);
-    })
-    
-  }
+    });
+  };
 
   const handleToggle = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
-  }
+  };
 
   const handleGoogle = () => {
     googleSignUp()
@@ -50,13 +60,22 @@ const Login = () => {
       const user = res.user;
       setUser(user);
       toast.success("Signed up with Google!")
-      navigate(`${location.state ? location.state : '/'}`);
+      navigate(location.state || '/');
     })
-    .catch(error=>{
+    .catch(error => {
       toast.error(error.message);
-    })
-  }
+    });
+  };
 
+  const handleAutoFill = (e) => {
+    e.preventDefault();
+    setFormData({
+      email: 'man@gmail.com',
+      password: 'Iamaman'
+    });
+    
+    toast.info("Test credentials auto-filled!");
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 mt-20">
@@ -71,6 +90,8 @@ const Login = () => {
             <input
               name='email'
               type="email"
+              value={formData.email}
+              onChange={handleChange}
               className="input input-bordered w-full"
               placeholder="Enter your email"
               required
@@ -82,6 +103,8 @@ const Login = () => {
             <input
               name='password'
               type={showPassword ? 'text' : "password"}
+              value={formData.password}
+              onChange={handleChange}
               className="input input-bordered w-full"
               placeholder="Enter your password"
               required
@@ -101,19 +124,32 @@ const Login = () => {
             </button>
           </div>
 
-          <button type='submit' className="btn btn-neutral w-full mt-2">Login</button>
+          <button type='submit' className="btn btn-neutral w-full mt-2">
+            Login
+          </button>
         </form>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          Don’t have an account?{' '}
+          Don't have an account?{' '}
           <Link to='/auth/registration' className="text-blue-500 hover:underline">
             Sign up
           </Link>
         </p>
 
-        <div className='flex justify-center items-center flex-row relative'>
-          <button onClick={handleGoogle} className="btn w-full mt-2 ">Sign up with <span className='text-blue-500'>Google</span></button>
-          <FaGoogle className='absolute left-57 top-5'/>
+        <div className='flex justify-center items-center flex-row relative mt-4'>
+          <button onClick={handleGoogle} className="btn w-full">
+            <FaGoogle className="mr-2" />
+            Sign in with Google
+          </button>
+        </div>
+
+        <div className='flex justify-center items-center flex-row relative mt-4'>
+          <button 
+            onClick={handleAutoFill} 
+            className="btn w-full bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300"
+          >
+            Auto-fill Credentials
+          </button>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-toastify";
 import { FaUser, FaCaretDown, FaSun, FaMoon } from "react-icons/fa";
 
-export default function AnimatedNavbar() {
+export default function Navbar() {
   const [hovered, setHovered] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileDropdown, setProfileDropdown] = useState(false);
@@ -30,16 +30,15 @@ export default function AnimatedNavbar() {
     5: "0 30 20 1 14 80",
   };
 
-  // Links configuration based on authentication
   const allLinks = [
     { name: "Home", path: "/", showAlways: true },
     { name: "All Jobs", path: "/alljobs", showAlways: true },
     { name: "Add a Job", path: "/addJob", requireAuth: true },
     { name: "My Accepted Jobs", path: "/myJobs", requireAuth: true },
     { name: "My Posted Jobs", path: "/myaddedjobs", requireAuth: true },
+    { name: "Dashboard", path: "/dashboard", showAlways: true },
   ];
 
-  // Filter links based on authentication
   const links = allLinks.filter(link =>
     link.showAlways || (link.requireAuth && user)
   );
@@ -76,7 +75,7 @@ export default function AnimatedNavbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="relative w-[700px] hidden md:flex justify-around items-center h-[60px]">
+        <div className="relative w-full max-w-2xl lg:max-w-3xl hidden md:flex justify-around items-center h-[60px] mx-4 lg:mx-auto">
           <div
             className="absolute inset-0 flex justify-around items-center px-4"
             onMouseLeave={() => setHovered(null)}

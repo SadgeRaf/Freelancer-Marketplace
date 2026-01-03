@@ -17,6 +17,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Profile from "../pages/Profile";
 import Setting from "../pages/Setting";
 import Terms from "../pages/Terms";
+import { Suspense } from "react";
 
 
 const router = createBrowserRouter(
@@ -33,19 +34,14 @@ const router = createBrowserRouter(
                 {
                     path: '/alljobs',
                     element: (
-
-                        <AllJobs></AllJobs>
-
+                            <AllJobs></AllJobs>
                     ),
                     loader: () => fetch('https://freelancer-server-omega.vercel.app/jobs'),
-                    hydrateFallbackElement: <Loading></Loading>
                 },
                 {
                     path: '/jobdetail/:id',
                     element: (
-
                         <JobDetail></JobDetail>
-
                     )
 
                 },
@@ -89,15 +85,15 @@ const router = createBrowserRouter(
         },
         {
             path: '/dashboard',
-            element: <DashboardLayout></DashboardLayout>,
+            element: <PrivateRoute> <DashboardLayout></DashboardLayout> </PrivateRoute>,
             children: [
                 {
                     path: '/dashboard/profile',
-                    element: <PrivateRoute><Profile></Profile></PrivateRoute>
+                    element:<Profile></Profile>
                 },
                 {
                     path: '/dashboard/settings',
-                    element: <PrivateRoute><Setting></Setting></PrivateRoute>
+                    element: <Setting></Setting>
                 },
             ]
         },

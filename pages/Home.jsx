@@ -2,7 +2,6 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from 'gsap';
 import React, { useRef } from 'react';
-import Gallery from '../component/gallery';
 import bannerimg from '../src/assets/7880.jpg'
 import { useLoaderData, useNavigate } from 'react-router';
 import Job from '../component/Job';
@@ -17,19 +16,15 @@ import marketingImg from '../src/assets/images (2).jpg';
 import graphicsImg from '../src/assets/photo-1626785774573-4b799315345d.jpg';
 import AboutSection from '../component/AboutSection';
 import ContactSection from '../component/ContactSection';
-// import BlobCursor from '../animations/BlobCursor';
-
 
 gsap.registerPlugin(ScrollTrigger);
-
-
 
 const Home = () => {
   const data = useLoaderData();
   const containerRef = useRef();
   const jobContainer = useRef();
   const navigate = useNavigate();
-  // const galleryRef = useRef();
+
   useGSAP(() => {
     const circles = gsap.utils.toArray(".circle");
     circles.forEach((circle, i) => {
@@ -57,7 +52,6 @@ const Home = () => {
   }, []);
 
   useGSAP(() => {
-    // Scroll parallax
     gsap.to(".banner-bg", {
       yPercent: 20,
       ease: "none",
@@ -113,59 +107,6 @@ const Home = () => {
       ease: 'power3.out',
     });
   }, [])
-
-  // useGSAP(()=>{
-  //   gsap.from(galleryRef.current, {
-  //       scrollTrigger: {
-  //         trigger: galleryRef.current, 
-  //         start: "top 80%",        
-  //         end: "bottom 20%", 
-  //         toggleActions: "restart none restart none",
-  //         markers: false,       
-  //     },
-  //     y: 50,
-  //     opacity: 0,
-  //     duration: 1.2,
-  //     ease: "power3.out",  
-  //   })
-  // }, []);
-
-  // useEffect(() => {
-  //   const circles = gsap.utils.toArray(".circle");
-
-  //   const handleMouseMove = (e) => {
-  //     const rect = containerRef.current.getBoundingClientRect();
-  //     const mouseX = e.clientX - rect.left;
-  //     const mouseY = e.clientY - rect.top;
-
-  //     circles.forEach((circle) => {
-  //       const circleRect = circle.getBoundingClientRect();
-  //       const cx = circleRect.left + circleRect.width / 2 - rect.left;
-  //       const cy = circleRect.top + circleRect.height / 2 - rect.top;
-
-  //       const dx = mouseX - cx;
-  //       const dy = mouseY - cy;
-
-  //       // Small “magnet” effect
-  //       gsap.to(circle, {
-  //         x: dx * 0.1,
-  //         y: dy * 0.1,
-  //         duration: 0.3,
-  //         ease: "power2.out",
-  //       });
-  //     });
-  //   };
-
-  //   const el = containerRef.current;
-  //   el.addEventListener("mousemove", handleMouseMove);
-  //   el.addEventListener("mouseleave", () => {
-  //     circles.forEach((circle) =>
-  //       gsap.to(circle, { x: 0, y: 0, duration: 0.3, ease: "power2.out" })
-  //     );
-  //   });
-
-  //   return () => el.removeEventListener("mousemove", handleMouseMove);
-  // }, []);
 
   useGSAP(() => {
     gsap.fromTo(".us", {
@@ -339,26 +280,84 @@ const Home = () => {
         <h1 className="text-4xl font-extrabold mb-8">Top Categories</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
 
-          <div className="category bg-green-400 text-white p-4 rounded-lg text-center font-bold flex flex-col items-center">
-            <img src={webImg} alt="Web Development" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
-            <span>Web Development</span>
+          <div className="category group bg-gradient-to-br from-green-500 to-emerald-600 text-white p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+            <div className="relative mb-5">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
+                <img
+                  src={webImg}
+                  alt="Web Development"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-green-700 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">#1</span>
+              </div>
+            </div>
+            <span className="text-lg">Web Development</span>
+            <p className="text-sm font-normal mt-2 opacity-90">500+ Jobs</p>
           </div>
 
-          <div className="category bg-blue-400 text-black p-4 rounded-lg text-center font-bold flex flex-col items-center">
-            <img src={marketingImg} alt="Digital Marketing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
-            <span>Digital Marketing</span>
+          <div className="category group bg-gradient-to-br from-blue-500 to-cyan-600 text-white p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+            <div className="relative mb-5">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
+                <img
+                  src={marketingImg}
+                  alt="Digital Marketing"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">#2</span>
+              </div>
+            </div>
+            <span className="text-lg">Digital Marketing</span>
+            <p className="text-sm font-normal mt-2 opacity-90">450+ Jobs</p>
           </div>
 
-          <div className="category bg-purple-500 text-white p-4 rounded-lg text-center font-bold flex flex-col items-center">
-            <img src={graphicsImg} alt="Graphics Designing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
-            <span>Graphics Designing</span>
+          <div className="category group bg-gradient-to-br from-purple-500 to-pink-600 text-white p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+            <div className="relative mb-5">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
+                <img
+                  src={graphicsImg}
+                  alt="Graphics Designing"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-purple-700 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">#3</span>
+              </div>
+            </div>
+            <span className="text-lg">Graphics Designing</span>
+            <p className="text-sm font-normal mt-2 opacity-90">400+ Jobs</p>
           </div>
 
-          <div className="category bg-yellow-400 text-black p-4 rounded-lg text-center font-bold flex flex-col items-center">
-            <img src={writingImg} alt="Content Writing" className="w-20 h-20 object-cover rounded-full mb-4 transition-all duration-300 hover:w-24 hover:h-24 hover:rounded-xl" />
-            <span>Content Writing</span>
+          <div className="category group bg-gradient-to-br from-yellow-500 to-orange-500 text-gray-900 p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+            <div className="relative mb-5">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
+                <img
+                  src={writingImg}
+                  alt="Content Writing"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">#4</span>
+              </div>
+            </div>
+            <span className="text-lg">Content Writing</span>
+            <p className="text-sm font-normal mt-2 opacity-80">380+ Jobs</p>
           </div>
 
+        </div>
+
+        {/* Optional: View All Categories Button */}
+        <div className="text-center mt-10 mb-10">
+          <button
+            onClick={() => navigate('/alljobs')}
+            className="px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg"
+          >
+            View All Categories →
+          </button>
         </div>
       </div>
 
