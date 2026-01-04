@@ -131,8 +131,8 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white">Phone</h3>
-                  <p className="text-gray-600 dark:text-gray-400">+1 (555) 123-4567</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-500">Mon-Fri, 9AM-6PM EST</p>
+                  <p className="text-gray-600 dark:text-gray-400">+*801234567890</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-500">Mon-Fri, 9AM-6PM</p>
                 </div>
               </div>
 
@@ -143,7 +143,7 @@ const ContactSection = () => {
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white">Location</h3>
                   <p className="text-gray-600 dark:text-gray-400">123 Freelance Street</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-500">Digital City, DC 10001</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-500">Digital City, DK 1216</p>
                 </div>
               </div>
             </div>
@@ -173,7 +173,7 @@ const ContactSection = () => {
           <div ref={formRef}>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
               <div className="flex items-center mb-6">
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg mr-4">
+                <div className="p-3 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg mr-4">
                   <FaPaperPlane className="text-xl" />
                 </div>
                 <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -229,7 +229,7 @@ const ContactSection = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-200"
+                  className="w-full py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-200"
                 >
                   Send Message
                 </button>

@@ -261,14 +261,14 @@ const Home = () => {
             <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Fast Hiring</span>
             <span className="inline-block px-4 py-2 bg-blue-400 text-white rounded-lg">Trusted Professionals</span>
             <span className="inline-block px-4 py-2 bg-purple-500 text-white rounded-lg">24/7 Support</span>
-            <span className="inline-block px-4 py-2 bg-yellow-400 text-black rounded-lg">Affordable Prices</span>
-            <span className="inline-block px-4 py-2 bg-pink-400 text-white rounded-lg">Easy to Use</span>
+            <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Affordable Prices</span>
+            <span className="inline-block px-4 py-2 bg-blue-400 text-white rounded-lg">Easy to Use</span>
 
             <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Fast Hiring</span>
             <span className="inline-block px-4 py-2 bg-blue-400 text-white rounded-lg">Trusted Professionals</span>
             <span className="inline-block px-4 py-2 bg-purple-500 text-white rounded-lg">24/7 Support</span>
-            <span className="inline-block px-4 py-2 bg-yellow-400 text-black rounded-lg">Affordable Prices</span>
-            <span className="inline-block px-4 py-2 bg-pink-400 text-white rounded-lg">Easy to Use</span>
+            <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Affordable Prices</span>
+            <span className="inline-block px-4 py-2 bg-blue-400 text-white rounded-lg">Easy to Use</span>
           </div>
         </div>
       </div>
@@ -312,7 +312,7 @@ const Home = () => {
             <p className="text-sm font-normal mt-2 opacity-90">450+ Jobs</p>
           </div>
 
-          <div className="category group bg-gradient-to-br from-purple-500 to-pink-600 text-white p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+          <div className="category group bg-gradient-to-br from-purple-500 to-purple-700 text-white p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
             <div className="relative mb-5">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
                 <img
@@ -329,7 +329,7 @@ const Home = () => {
             <p className="text-sm font-normal mt-2 opacity-90">400+ Jobs</p>
           </div>
 
-          <div className="category group bg-gradient-to-br from-yellow-500 to-orange-500 text-gray-900 p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+          <div className="category group bg-gradient-to-br from-green-500 to-green-700 text-white p-6 rounded-xl text-center font-bold flex flex-col items-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
             <div className="relative mb-5">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
                 <img
@@ -338,7 +338,7 @@ const Home = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
-              <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center">
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-green-700 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-sm">#4</span>
               </div>
             </div>
@@ -351,7 +351,7 @@ const Home = () => {
         <div className="text-center mt-10 mb-10">
           <button
             onClick={() => navigate('/alljobs')}
-            className="px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg"
+            className="px-6 py-3  bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-green-400 text-black font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 "
           >
             View All Categories →
           </button>

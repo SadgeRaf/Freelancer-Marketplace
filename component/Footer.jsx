@@ -143,7 +143,7 @@ const Footer = () => {
 
   <div className="text-center">
     <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-xs sm:text-sm`}>
-      📧 contact@fmltd.com | 📞 +1 (555) 123-4567
+      📧 contact@fmltd.com | 📞 +8801234567890
     </p>
   </div>
 </footer>

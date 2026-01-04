@@ -177,7 +177,7 @@ const AboutSection = () => {
             ref={titleRef}
             className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
           >
-            Building the Future of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Freelance Work</span>
+            Building the Future of <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">Freelance Work</span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             We're revolutionizing how freelancers and clients connect, collaborate, and succeed together.
@@ -217,7 +217,7 @@ const AboutSection = () => {
             ref={storyRef}
             className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300"
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl mb-6">
               <FaUsers className="text-2xl text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Story</h2>
@@ -279,7 +279,7 @@ const AboutSection = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl p-12 shadow-2xl">
+        <div className="text-center bg-gradient-to-r from-green-400 to-blue-500 rounded-3xl p-12 shadow-2xl">
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Transform Your Freelance Journey?
           </h3>

@@ -15,12 +15,11 @@ const AllJobs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const limit = 6;
+  const limit = 8;
 
   const totalPages = Math.ceil(totalJobs / limit);
 
   useEffect(() => {
-    // Debounce search - wait 500ms before fetching
     const timer = setTimeout(() => {
       fetchJobs();
     }, 500);
@@ -55,7 +54,7 @@ const AllJobs = () => {
 
   const handleSort = (order) => {
     setSortOrder(order);
-    setCurrentPage(1); // Reset to first page when sorting changes
+    setCurrentPage(1);
   };
 
   const handleNavigation = () => {
@@ -69,7 +68,7 @@ const AllJobs = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setCurrentPage(1); // Reset to first page when searching
+    setCurrentPage(1); 
   };
 
   if (loading || navigation.state === 'loading') {
@@ -117,7 +116,7 @@ const AllJobs = () => {
               </div>
               <button
                 type="submit"
-                className="ml-3 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition-colors whitespace-nowrap"
+                className="ml-3 px-6 py-3 btn bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-green-400 text-black font-bold py-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 whitespace-nowrap"
               >
                 Search
               </button>
@@ -186,7 +185,7 @@ const AllJobs = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {jobs.length > 0 ? (
           jobs.map((job) => (
             <Job key={job._id} job={job} />
@@ -262,7 +261,7 @@ const AllJobs = () => {
       <div className="flex justify-center mt-10 mb-10">
         <button
           onClick={handleNavigation}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-colors"
+          className="btn bg-gradient-to-r from-green-400 to-blue-500 hover:from-blue-500 hover:to-green-400 text-black font-bold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"
         >
           Go Back
         </button>
