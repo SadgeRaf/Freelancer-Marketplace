@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from 'gsap';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import bannerimg from '../src/assets/7880.jpg'
 import { useLoaderData, useNavigate } from 'react-router';
 import Job from '../component/Job';
@@ -23,9 +23,19 @@ const Home = () => {
   const data = useLoaderData();
   const containerRef = useRef();
   const jobContainer = useRef();
+  const topCategoriesRef = useRef();
   const navigate = useNavigate();
 
+  // Initialize animations
+  useEffect(() => {
+    // Ensure ScrollTrigger is refreshed after DOM is ready
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+  }, []);
+
   useGSAP(() => {
+    // Circle animations
     const circles = gsap.utils.toArray(".circle");
     circles.forEach((circle, i) => {
       gsap.to(circle, {
@@ -39,9 +49,8 @@ const Home = () => {
         boxShadow: "0 0 20px rgba(255,255,255,0.8)",
       });
     });
-  }, []);
 
-  useGSAP(() => {
+    // Button animation
     gsap.to(".btn", {
       scale: 1.2,
       duration: 1,
@@ -52,6 +61,7 @@ const Home = () => {
   }, []);
 
   useGSAP(() => {
+    // Parallax background effect
     gsap.to(".banner-bg", {
       yPercent: 20,
       ease: "none",
@@ -63,7 +73,7 @@ const Home = () => {
       },
     });
 
-
+    // Mouse move effect
     const container = containerRef.current;
     const bg = container.querySelector(".banner-bg");
 
@@ -94,6 +104,7 @@ const Home = () => {
   }, []);
 
   useGSAP(() => {
+    // Jobs container animation
     gsap.from(jobContainer.current, {
       scrollTrigger: {
         trigger: jobContainer.current,
@@ -106,9 +117,10 @@ const Home = () => {
       duration: 1.2,
       ease: 'power3.out',
     });
-  }, [])
+  }, []);
 
   useGSAP(() => {
+    // "Why Choose US?" animation
     gsap.fromTo(".us", {
       scale: 0.8,
       opacity: 0,
@@ -123,37 +135,46 @@ const Home = () => {
         trigger: '.us',
         start: 'top 85%'
       }
-    })
-  })
-
-  useGSAP(() => {
-    const cards = document.querySelector(".cards");
-    const totalScroll = cards.scrollWidth - cards.parentElement.offsetWidth;
-
-    gsap.to(cards, {
-      x: -totalScroll,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".us",
-        start: "top 80%",
-        end: () => `+=${totalScroll}`,
-        scrub: true,
-
-      },
     });
+
+    // Scrolling cards animation
+    const cards = document.querySelector(".cards");
+    if (cards) {
+      const totalScroll = cards.scrollWidth - cards.parentElement.offsetWidth;
+      
+      gsap.to(cards, {
+        x: -totalScroll,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".us",
+          start: "top 80%",
+          end: () => `+=${totalScroll}`,
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+    }
   });
 
+  // FIXED: Top categories animation - separate hook
   useGSAP(() => {
-    gsap.from(".top-categories .category", {
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: ".top-categories",
-        start: "top 80%",
-      }
+    const categories = gsap.utils.toArray(".top-categories .category");
+    
+    categories.forEach((category, index) => {
+      gsap.from(category, {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: index * 0.1,
+        scrollTrigger: {
+          trigger: ".top-categories",
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none none",
+          markers: false, // Set to true for debugging
+        }
+      });
     });
   });
 
@@ -172,28 +193,10 @@ const Home = () => {
             className="absolute inset-0 bg-cover banner-bg bg-center brightness-50"
             style={{ backgroundImage: `url(${bannerimg})` }}
           ></div>
-          {/* <BlobCursor
-            blobType="circle"
-            fillColor="#5227FF"
-            trailCount={3}
-            sizes={[30, 100, 50]}
-            innerSizes={[20, 35, 25]}
-            innerColor="rgba(255,255,255,0.8)"
-            opacities={[0.6, 0.6, 0.2]}
-            shadowColor="rgba(0,0,0,0.75)"
-            shadowBlur={5}
-            shadowOffsetX={10}
-            shadowOffsetY={10}
-            filterStdDeviation={30}
-            useFilter={true}
-            fastDuration={0.1}
-            slowDuration={0.5}
-            zIndex={1}
-          /> */}
+          
           <h1 className="absolute text-5xl font-bold sm:text-6xl md:text-8xl md:font-extrabold left-6 sm:left-10 top-12 sm:top-16">
             Unemployed?
           </h1>
-
 
           <div className="absolute top-[40%] left-0 flex gap-6 sm:gap-10 px-4">
             {[...Array(17)].map((_, i) => (
@@ -207,7 +210,6 @@ const Home = () => {
           <div className='flex justify-between'>
             <h1 className="absolute text-xl sm:text-xl md:text-2xl md:font-bold top-[80%] left-[10%] md:left-[5%] sm:left-[10%]">
               Trusted by Thousands,
-
               Made by Professionals
             </h1>
             <h1 className="absolute text-4xl sm:text-5xl md:text-6xl md:font-bold top-[70%] left-[25%] md:left-[70%] sm:left-[60%]">
@@ -219,9 +221,8 @@ const Home = () => {
             See Jobs!
           </button>
         </div>
-
-
       </div>
+
       <div
         ref={jobContainer}
         className='w-11/12 mx-auto mt-4'>
@@ -252,13 +253,9 @@ const Home = () => {
           ))}
         </Swiper>
       </div>
-      {/* <div ref={galleryRef} className="mt-6 ">
-        <Gallery />
-      </div> */}
+
       <div className="us w-11/12 mx-auto overflow-hidden h-[120px] sm:h-[140px]">
         <h1 className="mb-4 text-3xl sm:text-4xl font-bold">Why Choose US?</h1>
-        {/* <p>Serving clients and freelancers since 2025, we have managed to garner over  users.</p>
-        <p>We have been trusted by </p> */}
         <div className="overflow-hidden h-full">
           <div className="cards flex gap-10 whitespace-nowrap">
             <span className="inline-block px-4 py-2 bg-green-400 text-black rounded-lg">Fast Hiring</span>
@@ -276,7 +273,8 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="top-categories w-11/12 mx-auto mt-20">
+      {/* FIXED: Top Categories Section with simpler animation */}
+      <div ref={topCategoriesRef} className="top-categories w-11/12 mx-auto mt-20">
         <h1 className="text-4xl font-extrabold mb-8">Top Categories</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
 
@@ -350,7 +348,6 @@ const Home = () => {
 
         </div>
 
-        {/* Optional: View All Categories Button */}
         <div className="text-center mt-10 mb-10">
           <button
             onClick={() => navigate('/alljobs')}
@@ -362,9 +359,7 @@ const Home = () => {
       </div>
 
       <AboutSection></AboutSection>
-
       <ContactSection></ContactSection>
-
     </div>
   );
 };

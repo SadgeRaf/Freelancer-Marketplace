@@ -75,9 +75,9 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="relative w-full max-w-2xl lg:max-w-3xl hidden md:flex justify-around items-center h-[60px] mx-4 lg:mx-auto">
+        <div className="relative w-full max-w-2xl lg:max-w-3xl hidden md:flex justify-around items-center h-[60px] lg:mx-4 lg:mx-auto">
           <div
-            className="absolute inset-0 flex justify-around items-center px-4"
+            className="absolute inset-0 flex justify-around items-center lg:px-4"
             onMouseLeave={() => setHovered(null)}
           >
             {links.map((link, i) => (

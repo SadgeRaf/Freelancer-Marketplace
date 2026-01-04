@@ -36,7 +36,6 @@ const router = createBrowserRouter(
                     element: (
                             <AllJobs></AllJobs>
                     ),
-                    loader: () => fetch('https://freelancer-server-omega.vercel.app/jobs'),
                 },
                 {
                     path: '/jobdetail/:id',
